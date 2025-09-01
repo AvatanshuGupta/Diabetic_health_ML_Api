@@ -163,10 +163,12 @@ class ModelTrainer:
         best_model_name = max(best_models, key=lambda name: best_models[name]['test_accuracy'])
         final_model = best_models[best_model_name]['model']
 
-        save_object(self.model_trainer_config.trained_model_path,final_model)
-
-        print(f"\n Best model '{best_model_name}' saved to {self.model_trainer_config.trained_model_path}")
-        logging.info(f"Best model '{best_model_name}' saved with test accuracy: {best_models[best_model_name]['test_accuracy']:.4f}")
+        try:
+            save_object(self.model_trainer_config.trained_model_path,final_model)
+            print(f"\n Best model '{best_model_name}' saved to {self.model_trainer_config.trained_model_path}")
+            logging.info(f"Best model '{best_model_name}' saved with test accuracy: {best_models[best_model_name]['test_accuracy']:.4f}")
+        except Exception as e:
+            raise CustomException(e,sys)
           
         # Extract best model information
         best_model_info = {
@@ -175,16 +177,18 @@ class ModelTrainer:
             "cv_accuracy": best_models[best_model_name]['cv_accuracy'],
             "best_params": str(best_models[best_model_name]['best_params'])  # Convert dict to string for CSV
         }
+        try:
+            # Convert to DataFrame
+            df_best_model = pd.DataFrame([best_model_info])  # Wrap in list to create one-row DataFrame
 
-        # Convert to DataFrame
-        df_best_model = pd.DataFrame([best_model_info])  # Wrap in list to create one-row DataFrame
+            # Save to CSV
+            csv_path = os.path.join("artifacts", "best_model_info.csv")
+            df_best_model.to_csv(csv_path, index=False)
 
-        # Save to CSV
-        csv_path = os.path.join("artifacts", "best_model_info.csv")
-        df_best_model.to_csv(csv_path, index=False)
-
-        print(f"Saved best model info to {csv_path}")
-        logging.info(f"Saved best model info to {csv_path}")
+            print(f"Saved best model info to {csv_path}")
+            logging.info(f"Saved best model info to {csv_path}")
+        except Exception as e:
+            raise CustomException(e,sys)
 
 
 
