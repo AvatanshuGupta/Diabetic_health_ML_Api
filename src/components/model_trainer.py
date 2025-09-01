@@ -50,74 +50,74 @@ class ModelTrainer:
                     'solver': ['liblinear', 'lbfgs']
                 }
             },
-            # "RandomForest": {
-            #     'model': RandomForestClassifier(),
-            #     'params': {
-            #         'n_estimators': [50, 100],
-            #         'max_depth': [None, 5, 10],
-            #         'min_samples_split': [2, 5]
-            #     }
-            # },
-            # "SVM": {
-            #     'model': Pipeline([
-            #         ('scaler', StandardScaler()),
-            #         ('svc', SVC())
-            #     ]),
-            #     'params': {
-            #         'svc__C': [0.1, 1, 10],
-            #         'svc__kernel': ['linear', 'rbf']
-            #     }
-            # },
-            # "KNN": {
-            #     'model': Pipeline([
-            #         ('scaler', StandardScaler()),
-            #         ('knn', KNeighborsClassifier())
-            #     ]),
-            #     'params': {
-            #         'knn__n_neighbors': [3, 5, 7, 9],
-            #         'knn__weights': ['uniform', 'distance']
-            #     }
-            # },
-            # "DecisionTree": {
-            #     'model': DecisionTreeClassifier(),
-            #     'params': {
-            #         'max_depth': [None, 5, 10],
-            #         'min_samples_split': [2, 5, 10]
-            #     }
-            # },
-            # "GradientBoosting": {
-            #     'model': GradientBoostingClassifier(),
-            #     'params': {
-            #         'n_estimators': [50, 100],
-            #         'learning_rate': [0.01, 0.1, 0.2],
-            #         'max_depth': [3, 5]
-            #     }
-            # },
-            # "AdaBoost": {
-            #     'model': AdaBoostClassifier(),
-            #     'params': {
-            #         'n_estimators': [50, 100],
-            #         'learning_rate': [0.5, 1.0, 1.5]
-            #     }
-            # },
-            # "SGDClassifier": {
-            #     'model': SGDClassifier(max_iter=1000, tol=1e-3),
-            #     'params': {
-            #         'loss': ['hinge', 'log_loss'],
-            #         'alpha': [0.0001, 0.001, 0.01]
-            #     }
-            # },
-            # "MLPClassifier": {
-            #     'model': Pipeline([
-            #         ('scaler', StandardScaler()),
-            #         ('mlp', MLPClassifier(max_iter=500))
-            #     ]),
-            #     'params': {
-            #         'mlp__hidden_layer_sizes': [(50,), (100,), (50, 50)],
-            #         'mlp__activation': ['relu', 'tanh'],
-            #         'mlp__alpha': [0.0001, 0.001]
-            #     }
-            # }
+            "RandomForest": {
+                'model': RandomForestClassifier(),
+                'params': {
+                    'n_estimators': [50, 100],
+                    'max_depth': [None, 5, 10],
+                    'min_samples_split': [2, 5]
+                }
+            },
+            "SVM": {
+                'model': Pipeline([
+                    ('scaler', StandardScaler()),
+                    ('svc', SVC())
+                ]),
+                'params': {
+                    'svc__C': [0.1, 1, 10],
+                    'svc__kernel': ['linear', 'rbf']
+                }
+            },
+            "KNN": {
+                'model': Pipeline([
+                    ('scaler', StandardScaler()),
+                    ('knn', KNeighborsClassifier())
+                ]),
+                'params': {
+                    'knn__n_neighbors': [3, 5, 7, 9],
+                    'knn__weights': ['uniform', 'distance']
+                }
+            },
+            "DecisionTree": {
+                'model': DecisionTreeClassifier(),
+                'params': {
+                    'max_depth': [None, 5, 10],
+                    'min_samples_split': [2, 5, 10]
+                }
+            },
+            "GradientBoosting": {
+                'model': GradientBoostingClassifier(),
+                'params': {
+                    'n_estimators': [50, 100],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'max_depth': [3, 5]
+                }
+            },
+            "AdaBoost": {
+                'model': AdaBoostClassifier(),
+                'params': {
+                    'n_estimators': [50, 100],
+                    'learning_rate': [0.5, 1.0, 1.5]
+                }
+            },
+            "SGDClassifier": {
+                'model': SGDClassifier(max_iter=1000, tol=1e-3),
+                'params': {
+                    'loss': ['hinge', 'log_loss'],
+                    'alpha': [0.0001, 0.001, 0.01]
+                }
+            },
+            "MLPClassifier": {
+                'model': Pipeline([
+                    ('scaler', StandardScaler()),
+                    ('mlp', MLPClassifier(max_iter=500))
+                ]),
+                'params': {
+                    'mlp__hidden_layer_sizes': [(50,), (100,), (50, 50)],
+                    'mlp__activation': ['relu', 'tanh'],
+                    'mlp__alpha': [0.0001, 0.001]
+                }
+            }
         }
 
 
@@ -183,7 +183,7 @@ class ModelTrainer:
         csv_path = os.path.join("artifacts", "best_model_info.csv")
         df_best_model.to_csv(csv_path, index=False)
 
-        print(f"✅ Saved best model info to {csv_path}")
+        print(f"Saved best model info to {csv_path}")
         logging.info(f"Saved best model info to {csv_path}")
 
 
