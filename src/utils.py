@@ -2,7 +2,7 @@ import pickle
 import os
 from src.exception import CustomException
 import sys
-
+import pandas as pd
 
 def save_object(file_path, obj):
     try:
@@ -24,3 +24,8 @@ def load_object(file_path):
     except Exception as e:
         raise CustomException(e, sys)
     
+def load_csv(file_path):
+    try:
+        return pd.read_csv(file_path)
+    except Exception as e:
+        raise CustomException(e, sys)
