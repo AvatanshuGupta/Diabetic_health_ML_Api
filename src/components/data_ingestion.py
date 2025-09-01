@@ -38,6 +38,3 @@ class DataIngestion:
     
 
 
-if __name__=="__main__":
-    di=DataIngestion()
-    di.initiate_data_ingestion()
