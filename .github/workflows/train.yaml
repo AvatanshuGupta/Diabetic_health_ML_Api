@@ -1,7 +1,7 @@
 name: Retrain Model
 
 on:
-  workflow_dispatch:  # ← this enables the "Run workflow" button
+  workflow_dispatch:
 
 jobs:
   train:
