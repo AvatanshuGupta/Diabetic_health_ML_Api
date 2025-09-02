@@ -53,6 +53,7 @@ jobs:
     # 8️⃣ Trigger Render deployment (safe, trimmed)
     - name: Trigger Render deployment
       run: |
-        URL=$(echo "${{ secrets.RENDER_DEPLOY_HOOK }}" | tr -d '\n' | tr -d ' ')
-        echo "Deploying to Render at $URL"
-        curl -X POST -H "Content-Type: application/json" -d '{}' "$URL"
+        RENDER_URL="${{ secrets.RENDER_DEPLOY_HOOK }}"
+        CLEAN_URL=$(echo "$RENDER_URL" | tr -d '[:space:]')
+        echo "Deploying to Render at $CLEAN_URL"
+        curl -X POST -H "Content-Type: application/json" -d '{}' "$CLEAN_URL"
