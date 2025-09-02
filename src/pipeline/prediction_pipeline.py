@@ -14,7 +14,7 @@ class Prediction:
     
     def predict(self):
         try:
-            self.prediction=model.predict(pd.DataFrame(self.input_data))
+            self.prediction=model.predict(pd.DataFrame([self.input_data]))
             logging.info("prediction successfull")
             return self.prediction
         except Exception as e:

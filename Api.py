@@ -9,21 +9,22 @@ app=FastAPI()
 def welcome():
     return {'message':'Welocome to diabetic health prediction model api.'}
 
-@app.get('/predict')
+@app.post('/predict')
 def predict(patient:Patient):
     input_data={
-        'gender':patient.gender,
+        'gender':patient.gender.value,
         'age':patient.age,
         'hypertension':patient.hypertension,
         'heart_disease':patient.heart_disease,
-        'smoking_history':patient.smoking_history,
-        'bmi ':patient.bmi,
+        'smoking_history':patient.smoking_history.value,
+        'bmi':patient.bmi,
         'HbA1c_level':patient.HbA1c_level,
         'blood_glucose_level':patient.blood_glucose_level
     }
     try:
-        pred=Prediction(input_data=input_data)
+        pred_obj=Prediction(input_data)
+        pred=pred_obj.predict()
         logging.info("prediction done successfully in api")
-        return {"prediction":pred[0]}
+        return {"prediction":int(pred[0])}
     except Exception as e:
         raise CustomException(e,sys)
