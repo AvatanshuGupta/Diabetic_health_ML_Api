@@ -8,25 +8,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # 1️⃣ Checkout code
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # 2️⃣ Set up Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
 
+    # 3️⃣ Install dependencies
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    # 4️⃣ Set PYTHONPATH
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$PYTHONPATH:." >> $GITHUB_ENV
 
+    # 5️⃣ Run training pipeline
     - name: Run training pipeline
-      run: python src/pipeline/training_pipeline.py
+      run: python -m src.pipeline.training_pipeline
 
+    # 6️⃣ Commit new model
     - name: Commit new model
       run: |
         git config user.name github-actions
@@ -34,6 +40,19 @@ jobs:
         git add artifacts/best_model.pkl
         git commit -m "Retrained model via GitHub Actions" || echo "No changes to commit"
         git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+
+    # 7️⃣ Debug Render secret
+    - name: Debug Render secret
+      run: |
+        echo "Raw secret (hidden characters shown):"
+        echo "${{ secrets.RENDER_DEPLOY_HOOK }}" | od -c
+        echo "Trimmed secret:"
+        URL=$(echo "${{ secrets.RENDER_DEPLOY_HOOK }}" | tr -d '\n' | tr -d ' ')
+        echo "$URL" | od -c
+
+    # 8️⃣ Trigger Render deployment (safe, trimmed)
     - name: Trigger Render deployment
       run: |
-        curl -X POST -H "Content-Type: application/json" -d '{}' "${{ secrets.RENDER_DEPLOY_HOOK }}"
+        URL=$(echo "${{ secrets.RENDER_DEPLOY_HOOK }}" | tr -d '\n' | tr -d ' ')
+        echo "Deploying to Render at $URL"
+        curl -X POST -H "Content-Type: application/json" -d '{}' "$URL"
