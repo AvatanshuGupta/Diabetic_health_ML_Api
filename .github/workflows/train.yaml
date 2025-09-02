@@ -1,3 +1,8 @@
+name: Retrain Model
+
+on:
+  workflow_dispatch:  # ← this enables the "Run workflow" button
+
 jobs:
   train:
     runs-on: ubuntu-latest
