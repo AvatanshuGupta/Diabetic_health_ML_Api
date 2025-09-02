@@ -36,4 +36,4 @@ jobs:
         git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
     - name: Trigger Render deployment
       run: |
-        curl -X POST -H "Content-Type: application/json" -d '{}' ${{ secrets.RENDER_DEPLOY_HOOK }}
+        curl -X POST -H "Content-Type: application/json" -d '{}' "${{ secrets.RENDER_DEPLOY_HOOK }}"
