@@ -1,0 +1,2 @@
+model_name,test_accuracy,cv_accuracy,best_params
+LogisticRegression,0.9595439315897385,0.9604175782959304,"{'C': 1, 'solver': 'liblinear'}"
