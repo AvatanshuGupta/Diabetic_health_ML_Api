@@ -35,4 +35,5 @@ jobs:
         git commit -m "Retrained model via GitHub Actions" || echo "No changes to commit"
         git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
     - name: Trigger Render deployment
-      run: curl -X POST -H "Content-Type: application/json" -d '{}' ${{ secrets.RENDER_DEPLOY_HOOK }}
+      run: |
+        curl -X POST -H "Content-Type: application/json" -d '{}' ${{ secrets.RENDER_DEPLOY_HOOK }}
