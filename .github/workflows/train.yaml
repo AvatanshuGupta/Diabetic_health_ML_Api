@@ -24,6 +24,9 @@ jobs:
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$PYTHONPATH:." >> $GITHUB_ENV
 
+    - name: Run data ingestion pipeline
+      run: python -m src.pipeline.data_ingestion_pipeline
+
     - name: Run training pipeline
       run: python -m src.pipeline.training_pipeline
 
