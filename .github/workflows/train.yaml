@@ -23,6 +23,9 @@ jobs:
 
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$PYTHONPATH:." >> $GITHUB_ENV
+    
+    - name: Export DATABASE_URL
+      run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
 
     - name: Run data ingestion pipeline
       run: python -m src.pipeline.data_ingestion_pipeline
